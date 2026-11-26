@@ -24,7 +24,7 @@ export default function Submit() {
   const pick = (e) => {
     const p = e.target.files[0]; if (!p) return
     const ext = p.name.split('.').pop().toLowerCase()
-    if (!ALLOWED_EXT.includes(ext)) { setErr({ ...err, file: `.${ext} files are not accepted. Upload a ZIP, HTML or CSS file.` }); e.target.value = ''; return }
+    if (!ALLOWED_EXT.includes(ext)) { setErr({ ...err, file: `.${ext} files are not accepted. Upload a ZIP, HTML, CSS or JS file.` }); e.target.value = ''; return }
     if (p.size > MAX_MB * 1024 * 1024) { setErr({ ...err, file: `This file is ${size(p.size)}. The limit is ${MAX_MB} MB.` }); e.target.value = ''; return }
     setErr({ ...err, file: '' }); setFile(p)
   }
@@ -72,9 +72,9 @@ export default function Submit() {
       <Field k="level" label="Level"><select id="level" className={cls} value={f.level} onChange={set('level')}><option value="">Select level</option>{[100, 200, 300, 400, 500].map(l => <option key={l}>{l}</option>)}</select></Field>
       <Field k="asg" label="Assignment / week"><select id="asg" className={cls} value={asg} onChange={e => setAsg(e.target.value)}><option value="">Select assignment</option>{assignments.map(a => <option key={a.n} value={a.n}>Week {a.n} — {a.title}</option>)}</select></Field>
       <Field k="file" label="Project file"><div className="mt-1 rounded-md border border-dashed border-ink/30 bg-white p-4 text-center">
-        <Upload className="mx-auto text-brand-700" aria-hidden /><input ref={input} id="file" type="file" accept=".zip,.html,.css" onChange={pick} className="sr-only" />
+        <Upload className="mx-auto text-brand-700" aria-hidden /><input ref={input} id="file" type="file" accept=".zip,.html,.css,.js" onChange={pick} className="sr-only" />
         <label htmlFor="file" className="btn-o mt-2 cursor-pointer">Choose File</label>
-        <p className="mt-2 text-xs text-ink/60">Accepted: ZIP (preferred), HTML, CSS · Max {MAX_MB} MB</p>
+        <p className="mt-2 text-xs text-ink/60">Accepted: ZIP (preferred), HTML, CSS, JS · Max {MAX_MB} MB</p>
         {file && <p className="mt-2 flex items-center justify-center gap-2 text-sm"><span className="truncate">{file.name} ({size(file.size)})</span><button type="button" onClick={clear} aria-label="Remove selected file"><X size={16} /></button></p>}</div></Field>
       <div><label className="text-sm font-medium" htmlFor="comments">Additional comments (optional)</label><textarea id="comments" rows="3" className={cls} value={f.comments} onChange={set('comments')} /></div>
       {fail && <p role="alert" className="flex gap-2 rounded-md bg-red-50 p-3 text-sm text-red-700"><AlertCircle size={18} className="shrink-0" />{fail}</p>}

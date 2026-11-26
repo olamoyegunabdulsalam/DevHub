@@ -17,7 +17,7 @@ export default function Videos() {
   const go = (k) => { setParams({ v: k }); window.scrollTo(0, 0) }
   return <div className="mx-auto max-w-6xl px-4 py-8">
     <h1 className="text-2xl font-bold">Video Tutorials</h1>
-    <p className="mt-1 text-ink/70">Every video from the W3Schools YouTube channel.</p>
+    <p className="mt-1 text-ink/70">Video lessons from the W3Schools YouTube channel.</p>
     <div className="mt-5 grid gap-6 lg:grid-cols-[1fr_300px]">
       <div><Player v={v} />
         <h2 className="mt-4 text-xl font-bold">{v.title}</h2>
@@ -27,7 +27,7 @@ export default function Videos() {
           <button className="btn-o" disabled={i === 0} onClick={() => go(videos[i - 1].key)}><ChevronLeft size={16} />Previous</button>
           <button className="btn-p flex-1 sm:flex-none" disabled={i === videos.length - 1} onClick={() => go(videos[i + 1].key)}>Next tutorial<ChevronRight size={16} /></button></div></div>
       <nav aria-label="Video list" className="max-h-96 overflow-y-auto rounded-lg border border-ink/10 bg-white lg:max-h-[32rem]">
-        {['html', 'css'].map(g => <div key={g}><p className="sticky top-0 bg-brand-100 px-4 py-2 text-sm font-bold">{g.toUpperCase()} videos</p>
+        {['html', 'css', 'js'].map(g => <div key={g}><p className="sticky top-0 bg-brand-100 px-4 py-2 text-sm font-bold">{{ html: 'HTML', css: 'CSS', js: 'JavaScript' }[g]} videos</p>
           {videos.map((x, n) => x.track === g && <button key={x.key} onClick={() => go(x.key)} aria-current={n === i} className={`flex w-full justify-between gap-2 px-4 py-2.5 text-left text-sm hover:bg-brand-50 ${n === i ? 'bg-brand font-bold' : ''}`}><span>{x.title}</span><span className="text-ink/50">{x.dur}</span></button>)}</div>)}
       </nav></div>
     <section className="mt-10"><h2 className="text-lg font-bold">Topics without a video</h2>

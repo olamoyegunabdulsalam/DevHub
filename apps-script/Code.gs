@@ -2,8 +2,8 @@
 const ROOT_FOLDER_ID = '1tgliKmuiRX51DLYRtMPyrJHEuZgXeARM'   // "NACOS Web Development Submissions" folder
 const SHEET_ID = '1DjoDCq1en14-II8MDqUVt30uJPOis_2wPwMdQ3fGGTU'          // "NACOS Web Development Assignment Submissions"
 const MAX_BYTES = 5 * 1024 * 1024                // keep in sync with src/config.js
-const ALLOWED = ['zip', 'html', 'css']
-const TITLES = ['HTML Foundations', 'Website Structure and Navigation', 'Images, Lists and Tables', 'Forms and Semantic HTML', 'HTML Revision and Integration', 'Introduction to CSS', 'CSS Box Model and Spacing', 'Flexbox and Grid', 'Responsive Design', 'Final Project']
+const ALLOWED = ['zip', 'html', 'css', 'js']
+const TITLES = ['Introduction to HTML', 'Semantic Structure and Forms', 'CSS Fundamentals', 'CSS Box Model and Layout', 'Responsive Design', 'JavaScript Fundamentals', 'DOM and Events', 'Interactive Features', 'Final Project and Presentation']
 const HEADERS = ['Submission ID', 'Submission Date', 'Student Full Name', 'Email Address', 'Department', 'Level', 'Assignment Number', 'Assignment Title', 'Uploaded File Name', 'Google Drive File URL', 'Additional Comments']
 
 function out(o) { return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON) }
@@ -20,7 +20,7 @@ function doPost(e) {
     const n = parseInt(d.assignmentNumber, 10)
     if (!name || !dept || !level) return out({ ok: false, error: 'Name, department and level are required.' })
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return out({ ok: false, error: 'Invalid email address.' })
-    if (!(n >= 1 && n <= 10)) return out({ ok: false, error: 'Invalid assignment.' })
+    if (!(n >= 1 && n <= 9)) return out({ ok: false, error: 'Invalid assignment.' })
     const safe = str(d.fileName, 150).replace(/[^\w.\- ]/g, '_')
     const ext = (safe.split('.').pop() || '').toLowerCase()
     if (safe.indexOf('.') < 0 || ALLOWED.indexOf(ext) < 0) return out({ ok: false, error: 'Only ZIP, HTML or CSS files are accepted.' })
